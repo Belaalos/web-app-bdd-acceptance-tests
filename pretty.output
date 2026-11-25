@@ -1,0 +1,52 @@
+Feature: Dynamic page elements # features/dynamic.feature:1
+
+  Scenario: Add and remove elements      # features/dynamic.feature:3
+    Given I open "/add_remove_elements/" # features/steps/steps.py:16
+    When I add 3 elements                # features/steps/steps.py:52
+    And I delete 1 element               # features/steps/steps.py:59
+    Then I should see 2 delete buttons   # features/steps/steps.py:65
+
+  Scenario: Checkboxes can be toggled         # features/dynamic.feature:9
+    Given I open "/checkboxes"                # features/steps/steps.py:16
+    When I tick the first checkbox            # features/steps/steps.py:70
+    Then the first checkbox should be checked # features/steps/steps.py:77
+
+  Scenario: Select a dropdown option           # features/dynamic.feature:14
+    Given I open "/dropdown"                   # features/steps/steps.py:16
+    When I choose "Option 2" from the dropdown # features/steps/steps.py:82
+    Then the dropdown should show "Option 2"   # features/steps/steps.py:87
+
+  Scenario: Hidden element appears after loading  # features/dynamic.feature:19
+    Given I open "/dynamic_loading/1"             # features/steps/steps.py:16
+    When I click start                            # features/steps/steps.py:93
+    Then I should see the text "Hello World!"     # features/steps/steps.py:98
+
+  Scenario: JavaScript alert can be accepted                       # features/dynamic.feature:24
+    Given I open "/javascript_alerts"                              # features/steps/steps.py:16
+    When I click the JS alert button and accept it                 # features/steps/steps.py:103
+    Then the result should say "You successfully clicked an alert" # features/steps/steps.py:109
+
+Feature: Login on the-internet.herokuapp.com # features/login.feature:1
+  As a user I want to sign in so that I can reach the secure area
+  Scenario: Successful login                                                   # features/login.feature:4
+    Given I am on the login page                                               # features/steps/steps.py:11
+    When I log in with username "tomsmith" and password "SuperSecretPassword!" # features/steps/steps.py:21
+    Then I should see the secure area                                          # features/steps/steps.py:34
+    And the message should contain "You logged into a secure area!"            # features/steps/steps.py:40
+
+  Scenario Outline: Failed login shows an error -- @1.1         # features/login.feature:17
+    Given I am on the login page                                # features/steps/steps.py:11
+    When I log in with username "tomsmith" and password "wrong" # features/steps/steps.py:21
+    Then the message should contain "Your password is invalid"  # features/steps/steps.py:40
+
+  Scenario Outline: Failed login shows an error -- @1.2                      # features/login.feature:18
+    Given I am on the login page                                             # features/steps/steps.py:11
+    When I log in with username "nobody" and password "SuperSecretPassword!" # features/steps/steps.py:21
+    Then the message should contain "Your username is invalid"               # features/steps/steps.py:40
+
+  Scenario: Logout                                                             # features/login.feature:20
+    Given I am on the login page                                               # features/steps/steps.py:11
+    When I log in with username "tomsmith" and password "SuperSecretPassword!" # features/steps/steps.py:21
+    And I click logout                                                         # features/steps/steps.py:29
+    Then I should be back on the login page                                    # features/steps/steps.py:46
+
