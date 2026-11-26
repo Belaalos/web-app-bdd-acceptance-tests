@@ -16,8 +16,8 @@ Behaviour driven tests written in Gherkin with Python **behave** and Selenium, r
 ## Run it
 
 ```bash
-git clone https://github.com/Belaalos/the-internet-behave-bdd.git
-cd the-internet-behave-bdd
+git clone https://github.com/Belaalos/web-app-bdd-acceptance-tests.git
+cd web-app-bdd-acceptance-tests
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 behave                 # headless Chrome
